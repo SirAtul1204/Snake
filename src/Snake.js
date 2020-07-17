@@ -1,4 +1,7 @@
+//Snake Class
 class Snake {
+  //Constructor with p5 as a argument, so that I can save it a
+  //variable and can use it through out the class
   constructor(p5) {
     this.p5 = p5;
     this.x = [0];
@@ -9,16 +12,19 @@ class Snake {
     this.score = 0;
   }
 
+  //Function called when a Key is Pressed and Changes the Direction of the movement of the Snake.
   changeDirection(a, b) {
     this.speedX = a;
     this.speedY = b;
   }
 
+  //Method to check if the Snake(it's Head) ate the Food
   checkEat(food, width, height) {
     if (
       Math.abs(this.x[this.x.length - 1] - food.x) < 20 &&
       Math.abs(this.y[this.x.length - 1] - food.y) < 20
     ) {
+      //Increasing the length of Snake
       if (this.dir === "UP") {
         this.x.push(food.x);
         this.y.push(food.y - 20);
@@ -33,6 +39,7 @@ class Snake {
         this.y.push(food.y + 20);
       }
 
+      //Changing the location of food, to make the illusion of getting new food
       food.x = food.getRandomFood(width);
       food.y = food.getRandomFood(height);
 
@@ -41,6 +48,7 @@ class Snake {
     }
   }
 
+  //Function responsible for movement of the Snake
   update(width, height) {
     let headX = this.x[this.x.length - 1];
     let headY = this.y[this.y.length - 1];
@@ -67,6 +75,7 @@ class Snake {
     }
   }
 
+  //Function that draws Snake on the Canvas
   draw() {
     for (let i = 0; i < this.x.length; i++) {
       this.p5.fill(0, 255, 0);
@@ -75,6 +84,7 @@ class Snake {
     }
   }
 
+  //Function to check Death/Game-End
   checkDeath() {
     let flag = 0;
     for (let i = 0; i < this.x.length - 1; i++) {
